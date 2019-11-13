@@ -1,0 +1,144 @@
+sensor:
+  - name: 'Car Speed'
+    platform: mqtt
+    state_topic: '/obd/speed'
+    value_template: '{{value | int}}'
+    force_update: true
+    unit_of_measurement: 'Mph'
+    icon: 'mdi:speedometer'
+
+  - name: 'Car RPM'
+    platform: mqtt
+    state_topic: '/obd/rpm'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 'rpm'
+    icon: 'mdi:engine'
+
+  - name: 'Car Control Module Voltage'
+    platform: mqtt
+    state_topic: '/obd/control_module_voltage'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 'v'
+    icon: 'mdi:flash'
+
+  - name: 'Car ELM Voltage'
+    platform: mqtt
+    state_topic: '/obd/elm_voltage'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 'v'
+    icon: 'mdi:flash'
+
+  - name: 'Car Fuel Level'
+    platform: mqtt
+    state_topic: '/obd/fuel_level'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:gas-station'
+
+  - name: 'Car Ambient Air Temp'
+    platform: mqtt
+    state_topic: '/obd/ambiant_air_temp'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 'F'
+    icon: 'mdi:thermometer-lines'
+
+  - name: 'Car Barometric Pressure'
+    platform: mqtt
+    state_topic: '/obd/barometric_pressure'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 'kPa'
+    icon: 'mdi:weight'
+
+  - name: 'Car Run Time'
+    platform: mqtt
+    state_topic: '/obd/run_time'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 's'
+    icon: 'mdi:timer'
+
+  - name: 'Car Accelerator Position (D)'
+    platform: mqtt
+    state_topic: '/obd/accelerator_pos_d'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'
+
+  - name: 'Car Accelerator Position (E)'
+    platform: mqtt
+    state_topic: '/obd/accelerator_pos_e'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'
+
+  - name: 'Car Throttle Position'
+    platform: mqtt
+    state_topic: '/obd/throttle_pos'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'
+
+  - name: 'Car Throttle Position (B)'
+    platform: mqtt
+    state_topic: '/obd/throttle_pos_b'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'
+
+  - name: 'Car Throttle Actuator'
+    platform: mqtt
+    state_topic: '/obd/throttle_actuator'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'
+
+  - name: 'Car Relative Throttle Position'
+    platform: mqtt
+    state_topic: '/obd/relative_throttle_pos'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'
+
+  - name: 'Car Coolant Temp'
+    platform: mqtt
+    state_topic: '/obd/coolant_temp'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 'F'
+    icon: 'mdi:thermometer-lines'
+
+  - name: 'Car Intake Temp'
+    platform: mqtt
+    state_topic: '/obd/intake_temp'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: 'F'
+    icon: 'mdi:thermometer-lines'
+
+  - name: 'Car Engine Load'
+    platform: mqtt
+    state_topic: '/obd/engine_load'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'
+
+  - name: 'Car Absolute Load'
+    platform: mqtt
+    state_topic: '/obd/absolute_load'
+    value_template: '{{value | float | round(2)}}'
+    force_update: true
+    unit_of_measurement: '%'
+    icon: 'mdi:van-utility'

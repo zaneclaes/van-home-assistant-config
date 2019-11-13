@@ -1,0 +1,13 @@
+hostNetwork: true
+
+image:
+  tag: 0.100.3
+
+persistence:
+  hostPath: /home/pi/home-assistant
+
+# hostMounts:
+#   - name: zha
+#     hostPath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_6120245D-if01-port0
+#   - name: zwave
+#     hostPath: /dev/serial/by-id/usb-Silicon_Labs_HubZ_Smart_Home_Controller_6120245D-if00-port0

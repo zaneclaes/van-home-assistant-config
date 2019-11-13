@@ -1,0 +1,72 @@
+homeassistant:
+  packages: !include_dir_named packages
+  customize_glob:
+    "sensor.speedify_status_*":
+      templates:
+        friendly_name: >-
+          if (state === 'disconnected') return 'disconnected';
+          else if (attributes.type == 'Wi-Fi') return attributes.connectedNetworkName;
+          else return attributes.type;
+        icon: >-
+          if (state === 'disconnected') {
+              if (attributes.type == 'Wi-Fi') return 'mdi:wifi-strength-off-outline';
+              else return 'mdi:signal-off';
+          }
+          else if (attributes.type == 'Wi-Fi') return 'mdi:wifi-strength-4';
+          else return 'mdi:signal-4g';
+  auth_providers:
+    - type: homeassistant
+    # - type: trusted_networks
+    #   allow_bypass_login: true
+    #   trusted_networks:
+    #     - !secret ip_self
+    #   trusted_users:
+    #     !secret ip_local_network_all: !secret guest_user
+
+http:
+  server_port: 8123
+  base_url: !secret base_url
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - !secret gateway
+  cors_allowed_origins:
+    - https://google.com
+    - https://www.home-assistant.io
+    # - http://house.local
+  ip_ban_enabled: false
+
+# custom_updater:
+#   show_installable: false
+#   hide_sensor: false
+#   track:
+#     - components
+#     - cards
+#     - python_scripts
+#   component_urls:
+#     - https://raw.githubusercontent.com/keatontaylor/custom_components/master/custom_components.json
+#   card_urls:
+#     - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
+#     - https://raw.githubusercontent.com/kalkih/mini-graph-card/master/tracker.json
+
+frontend:
+  javascript_version: latest
+  themes: !include_dir_merge_named themes
+  extra_html_url:
+    - /local/custom_ui/state-card-custom-ui.html
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-custom-ui-es5.html
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+mqtt:
+  broker: !secret ip_self

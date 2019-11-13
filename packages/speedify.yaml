@@ -1,0 +1,36 @@
+sensor:
+  - name: 'Speedify Status Verizon Jetpack'
+    platform: mqtt
+    state_topic: '/speedify/eth1'
+    json_attributes_topic: '/speedify/eth1'
+    value_template: '{{value_json.state}}'
+
+  - name: 'Speedify Status WiFi'
+    platform: mqtt
+    state_topic: '/speedify/wlan1'
+    json_attributes_topic: '/speedify/wlan1'
+    value_template: '{{value_json.state}}'
+
+  - name: 'Speedify Speed - Ping'
+    platform: mqtt
+    state_topic: '/speedify/speedtest/speedify'
+    json_attributes_topic: '/speedify/speedtest/speedify'
+    value_template: '{{value_json.rttMs | int}}'
+    icon: 'mdi:speedometer'
+    unit_of_measurement: 'ms'
+
+  - platform: template
+    sensors:
+      speedify_speed_download:
+        friendly_name_template: "Speedify Speed - Down"
+        unit_of_measurement: 'Mbps'
+        value_template: >-
+          {{ ((states.sensor.speedify_speed_ping.attributes.downloadBps | float) / 1000000) | round(2) }}
+        icon_template: 'mdi:download-network-outline'
+
+      speedify_speed_upload:
+        friendly_name_template: "Speedify Speed - Up"
+        unit_of_measurement: 'Mbps'
+        value_template: >-
+          {{ ((states.sensor.speedify_speed_ping.attributes.uploadBps | float) / 1000000) | round(2) }}
+        icon_template: 'mdi:upload-network-outline'

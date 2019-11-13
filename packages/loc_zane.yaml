@@ -1,0 +1,8 @@
+sensor:
+  - name: 'ZanePhone'
+    platform: mqtt
+    state_topic: 'owntracks/zane/D1B72C3A-923A-437D-9ABE-8E4416216C6F'
+    json_attributes_topic: 'owntracks/zane/D1B72C3A-923A-437D-9ABE-8E4416216C6F'
+    value_template: '{{value_json.batt}}'
+
+  # "batt":98,"lon":-97.997737509999951,"acc":9785,"p":95.547836303710938,"bs":1,"vac":45,"lat":40.875564669999989,"t":"t","conn":"w","tst":1573599940,"alt":534,"_type":"location","tid":"6F"

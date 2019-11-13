@@ -1,0 +1,50 @@
+sensor:
+  - name: 'Verizon Usage Info'
+    platform: mqtt
+    state_topic: '/verizon/usage_info'
+    json_attributes_topic: '/verizon/usage_info'
+    value_template: '{{value_json.totalShrUsage | float | round(2)}}' # {{ value_json.unit }}
+    force_update: true
+    icon: 'mdi:access-point-network'
+    unit_of_measurement: 'Gb'
+
+  - name: 'Verizon Status Data'
+    platform: mqtt
+    state_topic: '/verizon/status_data'
+    json_attributes_topic: '/verizon/status_data'
+    value_template: '{{ ((value_json.statusBarBytesTotal | int) / 1000000000) | round(2) }}'
+    unit_of_measurement: 'Gb'
+    icon: 'mdi:wan'
+    force_update: true
+
+  - platform: template
+    sensors:
+      verizon_device:
+        friendly_name_template: "{{ states.sensor.verizon_usage_info.attributes.gProductName }}"
+        value_template: >-
+          {{ states.sensor.verizon_status_data.attributes.statusBarNetwork }}
+        icon_template: 'mdi:cellphone-wireless'
+
+      # Icon = cell strength,
+      verizon:
+        friendly_name_template: "Verizon ({{ states.sensor.verizon_usage_info.attributes.daysLeft }} days left)"
+        unit_of_measurement: 'Gb'
+        value_template: >-
+          {{ states.sensor.verizon_usage_info.state }}
+        icon_template: >
+          {% if states.sensor.verizon_status_data.attributes.statusBarConnectionState == 'Connected' %}
+            {% if states.sensor.verizon_status_data.attributes.statusBarSignalBars | int <= 0 %}
+              mdi:network-strength-outline
+            {% elif states.sensor.verizon_status_data.attributes.statusBarSignalBars | int == 1 %}
+              mdi:network-strength-1
+            {% elif states.sensor.verizon_status_data.attributes.statusBarSignalBars | int == 2 %}
+              mdi:network-strength-2
+            {% elif states.sensor.verizon_status_data.attributes.statusBarSignalBars | int == 3 %}
+              mdi:network-strength-3
+            {% elif states.sensor.verizon_status_data.attributes.statusBarSignalBars | int >= 4 %}
+              mdi:network-strength-4
+            {% endif %}
+          {% else %}
+            mdi:network-strength-off-outline
+          {% endif %}
+
